@@ -40,6 +40,12 @@ app.get("/", (req, res) => {
   res.send("Api is running.");
 });
 
+app.get("/test", (req, res) => {
+  console.log("existing test is", req.session.test);
+  req.session.test = req.query.test;
+  res.send("succcess");
+});
+
 app.get("/questions", (req, res) => {
   console.log(req.session);
   if (!true) {
@@ -51,17 +57,39 @@ app.get("/questions", (req, res) => {
 
 app.post("/responses/add", async (req, res) => {
   let db_connect = dbo.getDb();
-  console.log("req.session.email", req.session.email);
+
+  let email = req.session.email;
+  if (!email) {
+    res.send({
+      success: false,
+      message: "Error submitting quiz (current user not found)",
+    });
+    return;
+  }
+  console.log("updaing quiz for user", email);
   db_connect
     .collection("users")
     .updateOne(
-      { email: req.session.email },
+      { email },
       { $set: { responses: req.body.responses } },
-      (err, res) => {
-        if (err) throw err;
-        console.log("added document to responses");
+      (err, _) => {
+        if (err) {
+          res.send({ success: false, message: "Error submitting quiz" });
+        } else {
+          res.send({ success: true });
+        }
       }
     );
+});
+
+app.get("/myresponses", async (req, res) => {
+  console.log("i am ", req.session.email);
+  let db_connect = dbo.getDb();
+  let me = await db_connect
+    .collection("users")
+    .findOne({ email: req.session.email });
+  console.log(me);
+  res.send({ hasTakenQuiz: !!me?.responses, responses: me?.responses });
 });
 
 app.post("/users/add", (req, res) => {
@@ -74,7 +102,7 @@ app.post("/users/add", (req, res) => {
       });
     } else {
       console.log("added document to users!");
-      req.session.user = req.body.userInfo.email;
+      req.session.email = req.body.userInfo.email;
       res.send({ success: true, message: "Added user!" });
     }
   });
@@ -94,7 +122,6 @@ app.get("/login", async (req, res) => {
     if (user.password == req.query.password) {
       console.log("setting session email to ", req.query.email);
       req.session.email = req.query.email;
-      console.log("session email is ", req.session.email);
       res.send({ success: true, user: user });
     } else {
       res.send({ success: false, message: "Incorrect username or password." });
@@ -104,18 +131,15 @@ app.get("/login", async (req, res) => {
   }
 });
 
-app.get("/currentUser", async (req, res) => {
-  console.log(req.session);
-  res.send({ email: req.session.email });
-});
-
 let surveySimilarity = (r1, r2) => {
-  console.log("r1", r1, "r2", r2);
   let total_similarity = 0;
   for (let question_id in r1.responses) {
     let question_similarity = 0;
     for (let answer_choice in r1.responses[question_id]) {
-      if (answer_choice in r2.responses[question_id]) {
+      if (
+        question_id in r2.responses &&
+        answer_choice in r2.responses[question_id]
+      ) {
         prod =
           r1.responses[question_id][answer_choice] *
           r2.responses[question_id][answer_choice];
@@ -124,8 +148,6 @@ let surveySimilarity = (r1, r2) => {
         }
       }
     }
-    console.log("question similalriyt is", question_similarity);
-
     total_similarity += question_similarity;
   }
   total_similarity /= Object.keys(r1.responses).length;
@@ -134,37 +156,47 @@ let surveySimilarity = (r1, r2) => {
 
 app.get("/allSimilarities", async (req, res) => {
   let db_connect = dbo.getDb();
-  let participant_responses = await db_connect
-    .collection("responses")
+  let participants = await db_connect
+    .collection("users")
     .find({
       isMatched: { $in: [null, false, true] },
-      isPartner: { $in: [null, false] },
+      type: { $in: ["participant"] },
+      responses: { $exists: true },
     })
     .toArray();
 
-  let partner_responses = await db_connect
-    .collection("responses")
+  let partners = await db_connect
+    .collection("users")
     .find({
       isMatched: { $in: [null, false, true] },
-      isPartner: true,
+      type: { $in: ["partner"] },
+      responses: { $exists: true },
     })
     .toArray();
-
-  let participants = participant_responses.map((response) => response.user_id);
-  let partners = partner_responses.map((response) => response.user_id);
 
   similarities = [];
-  for (let r1 of participant_responses) {
-    for (let r2 of partner_responses) {
+  for (let r1 of participants) {
+    for (let r2 of partners) {
       similarities.push({
-        participant_user: r1.user_id,
-        partner_user: r2.user_id,
+        participant: r1.email,
+        partner: r2.email,
         similarity: surveySimilarity(r1, r2),
       });
     }
   }
 
-  res.send({ participants, partners, similarities });
+  let abridged = (users) =>
+    users.map((user) => ({
+      email: user.email,
+      first: user.firstName,
+      last: user.lastName,
+    }));
+
+  res.send({
+    participants: abridged(participants),
+    partners: abridged(partners),
+    similarities,
+  });
 });
 
 app.get("/createMatches", async (req, res) => {
@@ -285,6 +317,48 @@ app.get("/sendNewMatchesEmails", async (req, res) => {
   //   if (err) console.log(err);
   //   else console.log(info);
   // });
+});
+
+app.get("/matchedResponses", async (req, res) => {
+  console.log("getted mathced response");
+  console.log(req.query.partner);
+  let db_connect = dbo.getDb();
+  let partner = await db_connect
+    .collection("users")
+    .findOne({ email: req.query.partner });
+
+  let participant = await db_connect
+    .collection("users")
+    .findOne({ email: req.query.participant });
+
+  let isMatched = await db_connect.collection("users").findOne({
+    participant: req.query.participant,
+    partner: req.query.partner,
+  });
+
+  res.send({
+    partner: partner?.responses,
+    participant: participant?.responses,
+    isMathced: !!isMatched,
+  });
+});
+
+app.post("/match", async (req, res) => {
+  let db_connect = dbo.getDb();
+  await db_connect.collection("matches").insertOne({
+    partner: req.body.partner,
+    participant: req.body.participant,
+  });
+  res.send({ success: true });
+});
+
+app.post("/removeMatch", async (req, res) => {
+  let db_connect = dbo.getDb();
+  await db_connect.collection("matches").deleteMany({
+    partner: req.body.partner,
+    participant: req.body.participant,
+  });
+  res.send({ success: true });
 });
 
 app.listen(port, () => {

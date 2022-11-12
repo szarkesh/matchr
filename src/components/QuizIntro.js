@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Button from "./Button";
 import Quiz from "./Quiz";
 let SERVER_URL = "http://localhost:5001";
@@ -6,8 +7,16 @@ function QuizIntro() {
   let [isTakingQuiz, setIsTakingQuiz] = useState(false);
   let [hasTakenQuiz, setHasTakenQuiz] = useState(false);
   let [quizFinished, setQuizFinished] = useState(false);
+  let [isLoading, setIsLoading] = useState(true);
+  let [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
-    fetch("/myresponses");
+    console.log("fetching");
+    fetch(SERVER_URL + "/myresponses", { credentials: "include" })
+      .then((res) => res.json())
+      .then((res) => {
+        setHasTakenQuiz(res.hasTakenQuiz);
+        setIsLoading(false);
+      });
   }, []);
   let steps = [
     {
@@ -20,19 +29,56 @@ function QuizIntro() {
       value: "Network and see where your career goes!",
     },
   ];
-
+  if (isLoading) {
+    return <></>;
+  }
   if (isTakingQuiz) {
-    return <Quiz onSubmitted={() => setQuizFinished(true)} />;
+    return (
+      <Quiz
+        onSubmitted={() => {
+          setIsTakingQuiz(false);
+          setQuizFinished(true);
+        }}
+      />
+    );
   } else {
     if (hasTakenQuiz) {
       return (
         <div className="flex flex-col items-center">
           <div className="container py-10 flex flex-col justify-center items-center">
-            <div className="text-xl">
-              It looks like you've already taken the survey. If you think this
-              is a mistake, please contact{" "}
-              <a href="mailto:shaya@zarkesh.org">shaya@zarkesh.org</a>
+            <div className="text-xl my-4">
+              Your match is pending. You'll get an email when our expert
+              matchers have matched you with a{" "}
+              {searchParams.get("mode") == "participant"
+                ? "partner"
+                : "participant"}
+              !
+              <div className="text-xs my-4">
+                If you think there's a mistake, please contact{" "}
+                <a href="mailto:shaya@zarkesh.org">shaya@zarkesh.org</a>
+              </div>
             </div>
+            <Link to="/">
+              <Button>Back to Home</Button>
+            </Link>
+          </div>
+        </div>
+      );
+    } else if (quizFinished) {
+      return (
+        <div className="flex flex-col items-center">
+          <div className="container py-10 flex flex-col justify-center items-center">
+            <div className="text-xl my-4">
+              Thank you for taking the quiz! You'll get an email when our expert
+              matchers have matched you with a{" "}
+              {searchParams.get("mode") == "participant"
+                ? "partner"
+                : "participant"}
+              !
+            </div>
+            <Link to="/">
+              <Button>Back to Home</Button>
+            </Link>
           </div>
         </div>
       );

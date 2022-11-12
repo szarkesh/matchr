@@ -26,24 +26,27 @@ function Login() {
   };
 
   return (
-    <div className="container">
+    <div className="container py-8">
       <div className="flex flex-col items-center">
         <form onSubmit={handleSubmit} className="w-72">
-          <Input
-            labelText="Email"
-            type="text"
-            id="email"
-            placeholder="*******"
-            required
-          />
-          <Input
-            labelText="Password"
-            type="password"
-            id="password"
-            placeholder="******"
-            required
-          />
-
+          <div className="my-4">
+            <Input
+              className="my-2"
+              labelText="Email"
+              type="text"
+              id="email"
+              placeholder="*******"
+              required
+            />
+            <Input
+              className="my-2"
+              labelText="Password"
+              type="password"
+              id="password"
+              placeholder="******"
+              required
+            />
+          </div>
           {loginError && (
             <div className="text-white rounded-md m-2 p-2 bg-red-400">
               {loginError}

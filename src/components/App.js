@@ -12,6 +12,7 @@ import Login from "./Login";
 import Quiz from "./Quiz";
 import QuizIntro from "./QuizIntro";
 import Signup from "./Signup";
+import ViewSideBySide from "./ViewSideBySide";
 
 let navigation = [
   {
@@ -29,7 +30,7 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col ">
       <div className="w-full">
-        <nav className="h-16 flex flex-row items-center space-x-8 px-8">
+        {/* <nav className="h-16 flex flex-row items-center space-x-8 px-8">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
@@ -45,7 +46,7 @@ function App() {
               </Link>
             );
           })}
-        </nav>
+        </nav> */}
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -53,6 +54,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="quiz" element={<QuizIntro />} />
         <Route path="match" element={<CreateMatches />} />
+        <Route path="sidebyside" element={<ViewSideBySide />} />
       </Routes>
     </div>
   );

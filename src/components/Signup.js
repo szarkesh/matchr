@@ -13,8 +13,13 @@ function Signup() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
+    if (!/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/.test(e.target.email.value)) {
+      setSignupError("Invalid email!");
+      return;
+    }
     if (e.target.confirm_password.value != e.target.password.value) {
       setSignupError("Password and confirmation must match!");
+      return;
     }
     let user = {
       firstName: e.target.first_name.value,
@@ -28,6 +33,7 @@ function Signup() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({ userInfo: user }),
     })
       .then((res) => res.json())
@@ -80,7 +86,7 @@ function Signup() {
             placeholder="******"
             required
           />
-          <div className="flex items-start mb-6">
+          <div className="flex items-start mb-4  mt-2">
             <div className="flex items-center h-5">
               <input
                 id="remember"
@@ -90,7 +96,7 @@ function Signup() {
                 required=""
               />
             </div>
-            <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+            <label className="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">
               I agree with the{" "}
               <a
                 href="#"

@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+th,
+td {
+  border: 1px solid;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
