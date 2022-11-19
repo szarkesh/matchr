@@ -218,6 +218,8 @@ app.get("/allSimilarities", async (req, res) => {
     })
     .toArray();
 
+  let matches = await db_connect.collection("matches").find({}).toArray();
+
   similarities = [];
   for (let r1 of participants) {
     for (let r2 of partners) {
@@ -225,6 +227,11 @@ app.get("/allSimilarities", async (req, res) => {
         participant: r1.email,
         partner: r2.email,
         similarity: surveySimilarity(r1, r2),
+        isMatched:
+          matches.filter(
+            (match) =>
+              match.participant == r1.email && match.partner == r2.email
+          ).length > 0,
       });
     }
   }
@@ -380,10 +387,16 @@ app.get("/matchedResponses", async (req, res) => {
     partner: req.query.partner,
   });
 
+  console.log("sending", {
+    partner: partner,
+    participant: participant,
+    isMatched: !!isMatched,
+  });
+
   res.send({
-    partner: partner?.responses,
-    participant: participant?.responses,
-    isMathced: !!isMatched,
+    partner: partner,
+    participant: participant,
+    isMatched: !!isMatched,
   });
 });
 

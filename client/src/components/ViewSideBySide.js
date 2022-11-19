@@ -13,7 +13,7 @@ function ViewSideBySide() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("responses are", res);
+        console.log("TEST RESPONSES", res);
         setResponses(res);
       });
   }, []);
@@ -65,18 +65,23 @@ function ViewSideBySide() {
   };
 
   let visualResponses = (mode, responses) => {
-    return Object.keys(responses).map((qid) => (
-      <div key={mode + " " + qid}>
-        <div className="text-blue-500 text-center">{qid}</div>
-        <div className="h-36">
-          {Object.keys(responses[qid]).map((selection) => (
-            <div>
-              {selection}: {responses[qid][selection]}
-            </div>
-          ))}
+    console.log("responses are", mode, responses);
+    return responses ? (
+      Object.keys(responses).map((qid) => (
+        <div key={mode + " " + qid}>
+          <div className="text-blue-500 text-center">{qid}</div>
+          <div className="h-36">
+            {Object.keys(responses[qid]).map((selection) => (
+              <div>
+                {selection}: {responses[qid][selection]}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ));
+      ))
+    ) : (
+      <div>Loading...</div>
+    );
   };
   return (
     <div className="flex flex-col items-center py-4">
@@ -92,13 +97,17 @@ function ViewSideBySide() {
         <div className="grid grid-cols-2">
           <div>
             <div className="text-red-500">
-              Participant: {params.get("participant")}
+              Participant: {responses.participant.firstName} (
+              {responses.participant.email})
             </div>
-            {visualResponses("participant", responses.participant)}
+            {visualResponses("participant", responses.participant.responses)}
           </div>
           <div>
-            <div className="text-red-500">Partner: {params.get("partner")}</div>
-            <div>{visualResponses("partner", responses.partner)}</div>
+            <div className="text-red-500">
+              {" "}
+              Partner: {responses.partner.firstName} ({responses.partner.email})
+            </div>
+            <div>{visualResponses("partner", responses.partner.responses)}</div>
           </div>
         </div>
         {!areMatched && (

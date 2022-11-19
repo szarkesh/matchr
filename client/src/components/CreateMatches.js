@@ -16,7 +16,7 @@ function CreateMatches() {
         for (let pair of res.similarities.sort(
           (a, b) => a.participant - b.participant
         )) {
-          rows[pair.partner].push(pair.similarity);
+          rows[pair.partner].push([pair.similarity, pair.isMatched]);
         }
         setSimilarities({
           ...res,
@@ -30,7 +30,8 @@ function CreateMatches() {
       <div className="p-4 m-4">
         Below are the scores for each (partner, participant) pair. Click on a
         cell in order to look at the responses for this pair of people and match
-        or unmatch them!
+        or unmatch them! Bold pairings are ones you have marked matched! You
+        still have to contact the pair after matching them.
       </div>
       <div className="container">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -47,11 +48,15 @@ function CreateMatches() {
                 <tr>
                   <td>{partner.first + " " + partner.last}</td>
                   {similarities.rows[partner.email].map((score, index) => (
-                    <td>
+                    <td
+                      style={{
+                        fontWeight: score[1] ? "700" : "400",
+                      }}
+                    >
                       <Link
                         to={`/sidebyside?partner=${partner.email}&participant=${similarities.participants[index].email}`}
                       >
-                        {score.toFixed(3)}
+                        {score[0].toFixed(3)}
                       </Link>
                     </td>
                   ))}
