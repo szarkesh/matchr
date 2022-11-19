@@ -1,8 +1,10 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const app = express();
 
 var session = require("express-session");
 var nodemailer = require("nodemailer");
+var os = require("os");
 
 var cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -10,21 +12,26 @@ var questionsFile = require("./questions/all_questions.json");
 require("dotenv").config({ path: "./config.env" });
 app.use(cookieParser());
 
-const transporter = nodemailer.createTransport({
-  port: 465, // true for 465, false for other ports
-  host: "smtp.gmail.com",
-  auth: {
-    user: "mathkidsz@gmail.com",
-    pass: "Supdawgs5",
-  },
-  secure: true,
-});
+const isLocal = os.hostname().indexOf("local") > -1;
+
+if (!isLocal) {
+  app.set("trust proxy", 1);
+}
+
+// const transporter = nodemailer.createTransport({
+//   port: 465, // true for 465, false for other ports
+//   host: "smtp.gmail.com",
+//   auth: {
+//     user: "mathkidsz@gmail.com",
+//   },
+//   secure: true,
+// });
 
 app.use(
   session({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 * 60, secure: false },
+    cookie: { maxAge: 1000 * 60 * 60 * 60, secure: !isLocal },
     resave: false,
   })
 );
@@ -92,18 +99,38 @@ app.get("/myresponses", async (req, res) => {
   res.send({ hasTakenQuiz: !!me?.responses, responses: me?.responses });
 });
 
+const saltRounds = 10;
+
 app.post("/users/add", (req, res) => {
   let db_connect = dbo.getDb();
-  db_connect.collection("users").insertOne(req.body.userInfo, (err, res2) => {
-    if (err) {
-      res.send({
-        success: false,
-        message: "You have already signed up with this email. Sign in instead!",
-      });
+  bcrypt.genSalt(saltRounds, function (saltError, salt) {
+    if (saltError) {
+      throw saltError;
     } else {
-      console.log("added document to users!");
-      req.session.email = req.body.userInfo.email;
-      res.send({ success: true, message: "Added user!" });
+      bcrypt.hash(req.body.userInfo.password, salt, function (hashError, hash) {
+        if (hashError) {
+          throw hashError;
+        } else {
+          db_connect
+            .collection("users")
+            .insertOne(
+              { ...req.body.userInfo, password: hash },
+              (err, res2) => {
+                if (err) {
+                  res.send({
+                    success: false,
+                    message:
+                      "You have already signed up with this email. Sign in instead!",
+                  });
+                } else {
+                  console.log("added document to users!");
+                  req.session.email = req.body.userInfo.email;
+                  res.send({ success: true, message: "Added user!" });
+                }
+              }
+            );
+        }
+      });
     }
   });
 });
@@ -119,13 +146,24 @@ app.get("/login", async (req, res) => {
   if (user.length > 0) {
     user = user[0];
     console.log(user);
-    if (user.password == req.query.password) {
-      console.log("setting session email to ", req.query.email);
-      req.session.email = req.query.email;
-      res.send({ success: true, user: user });
-    } else {
-      res.send({ success: false, message: "Incorrect username or password." });
-    }
+    bcrypt.compare(
+      req.query.password,
+      user.password,
+      function (error, isMatch) {
+        if (error) {
+          throw error;
+        } else if (!isMatch) {
+          res.send({
+            success: false,
+            message: "Incorrect username or password.",
+          });
+        } else {
+          console.log("setting session email to ", req.query.email);
+          req.session.email = req.query.email;
+          res.send({ success: true, user: user });
+        }
+      }
+    );
   } else {
     res.send({ success: false, message: "Incorrect username or password." });
   }
@@ -135,14 +173,22 @@ let surveySimilarity = (r1, r2) => {
   let total_similarity = 0;
   for (let question_id in r1.responses) {
     let question_similarity = 0;
-    for (let answer_choice in r1.responses[question_id]) {
+    normalizedResponser1 =
+      r2.responses[question_id] && "name" in r2.responses[question_id]
+        ? { [r1.responses[question_id]["value"]]: 10 }
+        : r1.responses[question_id];
+    normalizedResponser2 =
+      r2.responses[question_id] && "name" in r2.responses[question_id]
+        ? { [r2.responses[question_id]["value"]]: 10 }
+        : r2.responses[question_id];
+    for (let answer_choice in normalizedResponser1) {
       if (
         question_id in r2.responses &&
-        answer_choice in r2.responses[question_id]
+        answer_choice in normalizedResponser2
       ) {
         prod =
-          r1.responses[question_id][answer_choice] *
-          r2.responses[question_id][answer_choice];
+          normalizedResponser1[answer_choice] *
+          normalizedResponser2[answer_choice];
         if (!isNaN(prod)) {
           question_similarity += prod / 100;
         }
