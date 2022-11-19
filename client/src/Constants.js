@@ -9,5 +9,5 @@ const isLocalhost = Boolean(
 );
 
 export const SERVER_URL = isLocalhost
-  ? "http://localhost:5001"
+  ? "http://localhost:5002"
   : "https://participant-partner-match.herokuapp.com/";

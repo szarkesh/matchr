@@ -1,10 +1,13 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const app = express();
+const path = require("path");
 
 var session = require("express-session");
 var nodemailer = require("nodemailer");
 var os = require("os");
+
+const apiPort = process.env.PORT || 5002;
 
 var cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -36,16 +39,11 @@ app.use(
   })
 );
 
-const port = process.env.PORT || 5001;
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 // app.use(require("./routes/routes"));
 // get driver connection
 const dbo = require("./db/conn");
-
-app.get("/", (req, res) => {
-  res.send("Api is running.");
-});
 
 app.get("/test", (req, res) => {
   console.log("existing test is", req.session.test);
@@ -137,7 +135,7 @@ app.post("/users/add", (req, res) => {
 
 app.get("/login", async (req, res) => {
   let db_connect = dbo.getDb();
-  console.log("LOGIN CALLED");
+  console.log("LOGIN CALLED, db is", db_connect);
   let user = await db_connect
     .collection("users")
     .find({ email: req.query.email })
@@ -407,10 +405,16 @@ app.post("/removeMatch", async (req, res) => {
   res.send({ success: true });
 });
 
-app.listen(port, () => {
+app.use(express.static("../client/build"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/../client/build/index.html"));
+});
+
+app.listen(apiPort, () => {
   // perform a database connection when server starts
   dbo.connectToServer(function (err) {
     if (err) console.error(err);
   });
-  console.log(`Server is running on port: ${port}`);
+  console.log(`Server running on port ${apiPort}`);
 });
