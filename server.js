@@ -169,32 +169,68 @@ app.get("/login", async (req, res) => {
 
 let surveySimilarity = (r1, r2) => {
   let total_similarity = 0;
+  let total_weight = 0;
   for (let question_id in r1.responses) {
-    let question_similarity = 0;
+    let weight = questionsFile.questions.find(
+      (q) => q.id == question_id
+    ).weight;
+    total_weight += weight;
     normalizedResponser1 =
-      r2.responses[question_id] && "name" in r2.responses[question_id]
+      r1.responses[question_id] && "value" in r1.responses[question_id]
         ? { [r1.responses[question_id]["value"]]: 10 }
         : r1.responses[question_id];
     normalizedResponser2 =
-      r2.responses[question_id] && "name" in r2.responses[question_id]
+      r2.responses[question_id] && "value" in r2.responses[question_id]
         ? { [r2.responses[question_id]["value"]]: 10 }
         : r2.responses[question_id];
+    let prod = 0;
+    let len1 = 0;
+    let len2 = 0;
+    for (let answer_choice in normalizedResponser1) {
+      if (!isNaN(normalizedResponser1[answer_choice])) {
+        len1 += Math.pow(normalizedResponser1[answer_choice], 2);
+      }
+    }
+    for (let answer_choice in normalizedResponser2) {
+      if (!isNaN(normalizedResponser2[answer_choice])) {
+        len2 += Math.pow(normalizedResponser2[answer_choice], 2);
+      }
+    }
     for (let answer_choice in normalizedResponser1) {
       if (
         question_id in r2.responses &&
         answer_choice in normalizedResponser2
       ) {
-        prod =
-          normalizedResponser1[answer_choice] *
-          normalizedResponser2[answer_choice];
-        if (!isNaN(prod)) {
-          question_similarity += prod / 100;
+        if (
+          !isNaN(normalizedResponser1[answer_choice]) &&
+          !isNaN(normalizedResponser2[answer_choice])
+        ) {
+          prod +=
+            normalizedResponser1[answer_choice] *
+            normalizedResponser2[answer_choice];
+        } else {
+          console.log("question has nans", question_id);
         }
       }
     }
-    total_similarity += question_similarity;
+    console.log(question_id, prod, len1, len2, weight);
+    if (isNaN(prod) || isNaN(len1) || isNaN(len2) || isNaN(weight)) {
+      console.log("NAN FOUND");
+    }
+    if (len1 != 0 && len2 != 0) {
+      total_similarity += (prod / Math.sqrt(len1 * len2)) * weight;
+    } else {
+      console.log(
+        r1.firstName,
+        r2.firstName,
+        question_id,
+        normalizedResponser1,
+        normalizedResponser2
+      );
+    }
   }
-  total_similarity /= Object.keys(r1.responses).length;
+  total_similarity /= total_weight;
+  console.log("total similarity", total_similarity);
   return total_similarity;
 };
 

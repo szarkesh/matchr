@@ -34,7 +34,8 @@
         "Automobile"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 10
     },
     {
       "text": "Score up to 3 types of professional assistance you seek. ",
@@ -50,7 +51,8 @@
         "Goods & Services"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 10
     },
     {
       "id": "program_load",
@@ -58,7 +60,8 @@
       "text_partner": "Program load you/your organization can provide? Score up to 2 selections.",
       "choices": ["Full-Time", "Part-Time", "Not Applicable"],
       "question_type": "select-multiple",
-      "selection_range": [1, 2]
+      "selection_range": [1, 2],
+      "weight": 4
     },
     {
       "id": "basic_skills",
@@ -92,7 +95,8 @@
         "Public Safety & Security "
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 5]
+      "selection_range": [1, 5],
+      "weight": 7
     },
     {
       "id": "employment_status",
@@ -110,7 +114,8 @@
         "Partner No Preference"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 2
     },
     {
       "id": "gender",
@@ -119,7 +124,8 @@
       "choices": ["Male", "Female", "Non-Binary", "Partner No Preference"],
       "question_type": "select",
       "question_type_partner": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 3
     },
     {
       "id": "marital_status",
@@ -135,7 +141,8 @@
       ],
       "question_type": "select",
       "question_type_partner": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 3
     },
     {
       "id": "ethnicity",
@@ -152,7 +159,8 @@
         "Partner No Preference"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 2
     },
     {
       "id": "educational_level",
@@ -172,7 +180,8 @@
       ],
       "question_type": "select",
       "question_type_partner": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 4
     },
     {
       "id": "age_group",
@@ -189,7 +198,8 @@
       ],
       "question_type": "select",
       "question_type_partner": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 4
     },
     {
       "id": "work_experience",
@@ -202,7 +212,8 @@
         "Middle-Level Management (Manager)"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 5
     },
     {
       "id": "life_events",
@@ -223,7 +234,8 @@
         "Partner No Preference"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 5
     },
     {
       "id": "personality_type",
@@ -249,7 +261,8 @@
       ],
       "question_type": "select",
       "question_type_partner": "select-multiple",
-      "selection_range": [1, 4]
+      "selection_range": [1, 4],
+      "weight": 7
     },
     {
       "id": "personal_mindset",
@@ -264,7 +277,8 @@
         "Conventional "
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 7
     },
     {
       "id": "role_types",
@@ -283,7 +297,8 @@
         "Variety "
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 6
     },
     {
       "id": "organizational_values",
@@ -301,7 +316,8 @@
         "Prestige"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 7
     },
     {
       "id": "work_environment",
@@ -320,7 +336,8 @@
         "Autonomous"
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 7
     },
     {
       "id": "team_culture",
@@ -338,7 +355,8 @@
         "Self-Development "
       ],
       "question_type": "select-multiple",
-      "selection_range": [1, 3]
+      "selection_range": [1, 3],
+      "weight": 7
     }
   ],
   "sections": [
