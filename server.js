@@ -168,9 +168,17 @@ app.get("/login", async (req, res) => {
 });
 
 let surveySimilarity = (r1, r2) => {
+  let nopref = "Partner No Preference";
   let total_similarity = 0;
   let total_weight = 0;
   for (let question_id in r1.responses) {
+    if (
+      !(question_id in r2.responses) ||
+      (nopref in r2.responses[question_id] &&
+        !isNaN(r2.responses[question_id][nopref]))
+    ) {
+      continue;
+    }
     let weight = questionsFile.questions.find(
       (q) => q.id == question_id
     ).weight;
@@ -208,8 +216,6 @@ let surveySimilarity = (r1, r2) => {
           prod +=
             normalizedResponser1[answer_choice] *
             normalizedResponser2[answer_choice];
-        } else {
-          console.log("question has nans", question_id);
         }
       }
     }
