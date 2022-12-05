@@ -20,3 +20,100 @@ td {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a {
+  @apply underline cursor-pointer text-blue-700;
+}
+
+.blockHead {
+  background-color: #dddddd;
+  /*width: 150px; */
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+}
+
+.blockHead:before {
+  color: red;
+  border-left: 20px solid;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 0;
+}
+
+.blockHead:after {
+  color: #dddddd;
+  border-left: 20px solid;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 0;
+}
+
+.complete:after {
+  @apply text-blue-600;
+}
+
+.arrow-left {
+  display: inline-block;
+  width: 40px;
+  border-top: 20px solid #dddddd;
+  border-bottom: 20px solid #dddddd;
+  border-left: 20px solid transparent;
+}
+
+.arrow-left-complete {
+  display: inline-block;
+  width: 40px;
+  border-top: 20px solid #2563eb;
+  border-bottom: 20px solid #2563eb;
+  border-left: 20px solid transparent;
+}
+
+.arrow-ctr {
+  display: inline-block;
+  background-color: #dddddd;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  left: -4px;
+}
+
+.arrow-ctr-complete {
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  left: -4px;
+}
+
+.arrow-right {
+  display: inline-block;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #dddddd;
+  position: relative;
+  left: -4px;
+}
+
+.arrow-right-complete {
+  display: inline-block;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #2563eb;
+  position: relative;
+  left: -4px;
+}

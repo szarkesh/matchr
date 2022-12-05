@@ -1,339 +1,349 @@
-[
-  {
-    "text": "Score up to 3 areas of interest.",
-    "text_partner": "Areas in which you/your organization can provide assistance. Score up to 3 selections.",
-    "id": "areas_of_interest",
-    "choices": [
-      "Architecture and Engineering ",
-      "Business Management ",
-      "Finance & Accounting ",
-      "Healthcare",
-      "Community & Social Service",
-      "Criminal Justice, Public Safety, and Security ",
-      "Sales and Retail ",
-      "Arts, Design and Communication ",
-      "Education and Training/Research",
-      "Government and Public Administration ",
-      "Hospitality and Tourism ",
-      "Computer & Information Technology ",
-      "STEM-Science and Mathematics",
-      "Media and Marketing",
-      "Military",
-      "Construction and Building ",
-      "Installation, Maintenance & Repair",
-      "Office and Administration Support",
-      "Law and Legal Services",
-      "Cosmetology",
-      "Real Estate",
-      "Fitness & Health ",
-      "Social Welfare",
-      "Trade & Investment",
-      "Food & Consumption",
-      "Logistics & Shipping",
-      "Automobile"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "text": "Score up to 3 types of professional assistance you seek. ",
-    "id": "types-of-assistance",
-    "choices": [
-      "Mentorship & Advisement ",
-      "Internship ",
-      "Vocational Curriculum ",
-      "Integrated Curriculum (Academic & Vocational)",
-      "Academic Curriculum ",
-      "Grants & Scholarships ",
-      "Loans ",
-      "Goods & Services"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "program_load",
-    "text": "Score up to 2 program duration you  are interested in.",
-    "text_partner": "Program load you/your organization can provide? Score up to 2 selections.",
-    "choices": ["Full-Time", "Part-Time", "Not Applicable"],
-    "question_type": "select-multiple",
-    "selection_range": [1, 2]
-  },
-  {
-    "id": "basic_skills",
-    "text": "My current basic skills are in-Score up to 5",
-    "text_partner": "Preferred Participant Current Basic Skills-Score up to 5",
-    "choices": [
-      "Administration & Clerical ",
-      "Medical Knowledge",
-      "Complex problem solving/Troubleshooting",
-      "Monitoring & Instructing ",
-      "Helping people (to aid or assist someone)",
-      "Mechanical ",
-      "Foreign Language ",
-      "Economics & Accounting ",
-      "Writing ",
-      "Psychology & Counseling ",
-      "Computer & Electronics",
-      "Personnel & Human Resources ",
-      "Customer & Personal Service ",
-      "Building & Construction ",
-      "Negotiation ",
-      "Biology & Science ",
-      "Sales & Marketing ",
-      "Memorization ",
-      "Telecommunication ",
-      "Time management ",
-      "Fine Arts ",
-      "Repairing ",
-      "Production & Processing ",
-      "Sociology/Social work",
-      "Public Safety & Security "
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 5]
-  },
-  {
-    "id": "employment_status",
-    "text": "What is your employment status (Select up to 3).",
-    "text_partner": "Preferred employment status of the Participant: Score up to 3 selections",
-    "choices": [
-      "Employed Full-time",
-      "Employed Part-time",
-      "Self-Employed",
-      "Independent Contractor",
-      "Unemployed-Seeking opportunities ",
-      "Student-High School",
-      "Student-Undergraduate",
-      "Student-Graduate",
-      "Partner No Preference"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "gender",
-    "text": "I identify myself as: Select one.",
-    "choices": ["Male", "Female", "Non-Binary", "Partner No Preference"],
-    "question_type": "select"
-  },
-  {
-    "id": "marital_status",
-    "text": "Marital state (Select one)",
-    "text_partner": "Preferred Marital Status of the Participant-Score up to 3 top selections",
-    "choices": [
-      "Married",
-      "Single ",
-      "Divorced",
-      "Widowed",
-      "Separated",
-      "Partner No Preference"
-    ],
-    "question_type": "select",
-    "question_type_partner": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "ethnicity",
-    "text": "I identify myself as: Select up to three",
-    "text_partner": "Preferred Ethnicity of the Participant-Score up to 3 top selections",
-    "choices": [
-      "Black/African",
-      "Asian",
-      "Hispanic or Latino ",
-      "Native American ",
-      "Middle Eastern or North African ",
-      "Native Hawaiian or Pacific Islander ",
-      "White ",
-      "Partner No Preference"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "educational_level",
-    "text": "Highest degree or level of Education you have completed? If currently enrolled, highest degree received. Select One.",
-    "text_partner": "Preferred Education Level of the Participant-Score up to 3 to selections you/your organization serve.",
-    "choices": [
-      "No formal education ",
-      "Some High school, no diploma ",
-      "High school diploma or equivalent",
-      "Some college credits, no degree ",
-      "Trade/technical/vocational trade certificate ",
-      "Associate Degree ",
-      "Bachelor's degree",
-      "Master's degree ",
-      "Professional degree ",
-      "Doctorate degree "
-    ],
-    "question_type": "select",
-    "question_type_partner": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "age_group",
-    "text": "What is your age Group",
-    "text_partner": "Preferred Age Group of the Participant-Score up to 3 top selections.",
-    "choices": [
-      "Under 18",
-      "18 to 24",
-      "25 to 34",
-      "35 to 44",
-      "45 to 54",
-      "55 to 64",
-      "Age 65 or older"
-    ],
-    "question_type": "select",
-    "question_type_partner": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "work_experience",
-    "text": "Current work experience level in the field of interest.",
-    "text_partner": "Preferred Work Experience of the Participant- Score up to 3 top selections.",
-    "choices": [
-      "Entry-Level (no experience) ",
-      "Intermediate (Associate/support)",
-      "First-Level Management (Assistant Manager)",
-      "Middle-Level Management (Manager)"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "life_events",
-    "text": "Which of the following life-events have you experienced? You can score up to 3 - score based on the perceived magnitude of impact",
-    "text_partner": "Can help Participants with following life experience-Score up to 3 top selections",
-    "choices": [
-      "Foster care or Adoption agency-Loss of immediate family member at an early age ",
-      "Migration",
-      "Persecution",
-      "Criminal Record",
-      "Domestic Violence ",
-      "Addiction ",
-      "Health crisis ",
-      "Homelessness",
-      "Natural Disaster",
-      "Hunger",
-      "None",
-      "Partner No Preference"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "personality_type",
-    "text": "Which of the personality type below do you consider yourself to be aligned with-One Selection",
-    "text_partner": "Preferred Personality Type of the Participant-Score up to 4 top selections.",
-    "choices": [
-      "INFP (Introvert, intuition, feeling, perceiving) ",
-      "INTJ (Introvert, Intuition, Thinking, Judging) ",
-      "INFJ (Introvert, Intuition, Feeling, Judgment) ",
-      "INTP (Introvert, Intuition, Thinking, Perceiving) ",
-      "ISFJ (Introvert, Sensing, Feeling, Judging) ",
-      "ISFP (Introvert, Sensing, Feeling, Perceiving) ",
-      "ISTJ (Introvert, Sensing, Thinking, Judging) ",
-      "ISTP (Introvert, Sensing, Thinking, Perceiving) ",
-      "ESFJ (Extravert, Sensing, Feeling, Judging) ",
-      "ESFP (Extravert, Sensing, Feeling, Perceiving) ",
-      "ESTJ (Extravert, Sensing, Thinking, Judging) ",
-      "ESTP (Extravert, Sensing, Thinking, Perceiving) ",
-      "ENFP (Extravert, Intuition, Feeling, Perceiving) ",
-      "ENTJ (Extravert, Intuition, Thinking, Judging) ",
-      "ENTP (Extravert, Intuition, Thinking, Perceiving) ",
-      "ENFJ (Extravert, Intuition, Feeling, Judging) "
-    ],
-    "question_type": "select",
-    "question_type_partner": "select-multiple",
-    "selection_range": [1, 4]
-  },
-  {
-    "id": "personal_mindset",
-    "text": "Which of the personality mindset below do you consider yourself to be aligned with.  Score up to 3",
-    "text_partner": "Preferred Mindset of the Participant- Score up to 3 selections ",
-    "choices": [
-      "Realistic",
-      "Investigative",
-      "Artistic ",
-      "Social ",
-      "Enterprising",
-      "Conventional "
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "role_types",
-    "text": "I value Roles with work activities that are: score up to 3",
-    "text_partner": "You/your organization's work activities- Score up to 3  selections that best describes the activities exercised by you/your organization",
-    "choices": [
-      "Analytical ",
-      "Challenging ",
-      "Creative ",
-      "Helping",
-      "Innovative ",
-      "Physical ",
-      "Interactive ",
-      "Research ",
-      "Risk taking ",
-      "Variety "
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "organizational_values",
-    "text": "Values that you like to see where you work: Score up to 3",
-    "text_partner": "You/your organization's values- Score up to 3 selections that best reflect you/your organization's values",
-    "choices": [
-      "Work/Life Balance ",
-      "Influence",
-      "Integrity",
-      "Honesty",
-      "Power",
-      "Respect",
-      "Spirituality",
-      "Status",
-      "Prestige"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "work_environment",
-    "text": "The type of work environment you want to work in: score up to 3",
-    "text_partner": "You/your organizational working environment- Score up to 3 selections that best reflet you/your organization's environment",
-    "choices": [
-      "Fast Paced ",
-      "Flexible ",
-      "Promotes Financial Reward",
-      "Promotes Learning",
-      "With Good Amenities",
-      "Predictable",
-      "Quiet",
-      "Relaxed ",
-      "Structured ",
-      "Autonomous"
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  },
-  {
-    "id": "team_culture",
-    "text": "The kind of team culture that you like to see where you work: score top 3",
-    "text_partner": "You/your organizational team culture- Score up to 3 selections that best reflect you/your organization team culture",
-    "choices": [
-      "Competition ",
-      "Diversity ",
-      "Leadership ",
-      "Management ",
-      "Open Communication ",
-      "Teamwork ",
-      "Trust ",
-      "Performance",
-      "Self-Development "
-    ],
-    "question_type": "select-multiple",
-    "selection_range": [1, 3]
-  }
-]
+{
+  "questions": [
+    {
+      "text": "Score up to 3 areas of interest.",
+      "text_partner": "Areas in which you/your organization can provide assistance. Score up to 3 selections.",
+      "id": "areas_of_interest",
+      "choices": [
+        "Architecture and Engineering ",
+        "Business Management ",
+        "Finance & Accounting ",
+        "Healthcare",
+        "Community & Social Service",
+        "Criminal Justice, Public Safety, and Security ",
+        "Sales and Retail ",
+        "Arts, Design and Communication ",
+        "Education and Training/Research",
+        "Government and Public Administration ",
+        "Hospitality and Tourism ",
+        "Computer & Information Technology ",
+        "STEM-Science and Mathematics",
+        "Media and Marketing",
+        "Military",
+        "Construction and Building ",
+        "Installation, Maintenance & Repair",
+        "Office and Administration Support",
+        "Law and Legal Services",
+        "Cosmetology",
+        "Real Estate",
+        "Fitness & Health ",
+        "Social Welfare",
+        "Trade & Investment",
+        "Food & Consumption",
+        "Logistics & Shipping",
+        "Automobile"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "text": "Score up to 3 types of professional assistance you seek. ",
+      "id": "types-of-assistance",
+      "choices": [
+        "Mentorship & Advisement ",
+        "Internship ",
+        "Vocational Curriculum ",
+        "Integrated Curriculum (Academic & Vocational)",
+        "Academic Curriculum ",
+        "Grants & Scholarships ",
+        "Loans ",
+        "Goods & Services"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "program_load",
+      "text": "Score up to 2 program duration you  are interested in.",
+      "text_partner": "Program load you/your organization can provide? Score up to 2 selections.",
+      "choices": ["Full-Time", "Part-Time", "Not Applicable"],
+      "question_type": "select-multiple",
+      "selection_range": [1, 2]
+    },
+    {
+      "id": "basic_skills",
+      "text": "My current basic skills are in-Score up to 5",
+      "text_partner": "Preferred Participant Current Basic Skills-Score up to 5",
+      "choices": [
+        "Administration & Clerical ",
+        "Medical Knowledge",
+        "Complex problem solving/Troubleshooting",
+        "Monitoring & Instructing ",
+        "Helping people (to aid or assist someone)",
+        "Mechanical ",
+        "Foreign Language ",
+        "Economics & Accounting ",
+        "Writing ",
+        "Psychology & Counseling ",
+        "Computer & Electronics",
+        "Personnel & Human Resources ",
+        "Customer & Personal Service ",
+        "Building & Construction ",
+        "Negotiation ",
+        "Biology & Science ",
+        "Sales & Marketing ",
+        "Memorization ",
+        "Telecommunication ",
+        "Time management ",
+        "Fine Arts ",
+        "Repairing ",
+        "Production & Processing ",
+        "Sociology/Social work",
+        "Public Safety & Security "
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 5]
+    },
+    {
+      "id": "employment_status",
+      "text": "What is your employment status (Select up to 3).",
+      "text_partner": "Preferred employment status of the Participant: Score up to 3 selections",
+      "choices": [
+        "Employed Full-time",
+        "Employed Part-time",
+        "Self-Employed",
+        "Independent Contractor",
+        "Unemployed-Seeking opportunities ",
+        "Student-High School",
+        "Student-Undergraduate",
+        "Student-Graduate",
+        "Partner No Preference"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "gender",
+      "text": "I identify myself as: Select one.",
+      "text_partner": "Preferred Gender of the Participant - Score up to 3 selections",
+      "choices": ["Male", "Female", "Non-Binary", "Partner No Preference"],
+      "question_type": "select",
+      "question_type_partner": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "marital_status",
+      "text": "Marital state (Select one)",
+      "text_partner": "Preferred Marital Status of the Participant-Score up to 3 top selections",
+      "choices": [
+        "Married",
+        "Single ",
+        "Divorced",
+        "Widowed",
+        "Separated",
+        "Partner No Preference"
+      ],
+      "question_type": "select",
+      "question_type_partner": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "ethnicity",
+      "text": "I identify myself as: Select up to three",
+      "text_partner": "Preferred Ethnicity of the Participant-Score up to 3 top selections",
+      "choices": [
+        "Black/African",
+        "Asian",
+        "Hispanic or Latino ",
+        "Native American ",
+        "Middle Eastern or North African ",
+        "Native Hawaiian or Pacific Islander ",
+        "White ",
+        "Partner No Preference"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "educational_level",
+      "text": "Highest degree or level of Education you have completed? If currently enrolled, highest degree received. Select One.",
+      "text_partner": "Preferred Education Level of the Participant-Score up to 3 to selections you/your organization serve.",
+      "choices": [
+        "No formal education ",
+        "Some High school, no diploma ",
+        "High school diploma or equivalent",
+        "Some college credits, no degree ",
+        "Trade/technical/vocational trade certificate ",
+        "Associate Degree ",
+        "Bachelor's degree",
+        "Master's degree ",
+        "Professional degree ",
+        "Doctorate degree "
+      ],
+      "question_type": "select",
+      "question_type_partner": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "age_group",
+      "text": "What is your age Group",
+      "text_partner": "Preferred Age Group of the Participant-Score up to 3 top selections.",
+      "choices": [
+        "Under 18",
+        "18 to 24",
+        "25 to 34",
+        "35 to 44",
+        "45 to 54",
+        "55 to 64",
+        "Age 65 or older"
+      ],
+      "question_type": "select",
+      "question_type_partner": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "work_experience",
+      "text": "Current work experience level in the field of interest.",
+      "text_partner": "Preferred Work Experience of the Participant- Score up to 3 top selections.",
+      "choices": [
+        "Entry-Level (no experience) ",
+        "Intermediate (Associate/support)",
+        "First-Level Management (Assistant Manager)",
+        "Middle-Level Management (Manager)"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "life_events",
+      "text": "Which of the following life-events have you experienced? You can score up to 3 - score based on the perceived magnitude of impact",
+      "text_partner": "Can help Participants with following life experience-Score up to 3 top selections",
+      "choices": [
+        "Foster care or Adoption agency-Loss of immediate family member at an early age ",
+        "Migration",
+        "Persecution",
+        "Criminal Record",
+        "Domestic Violence ",
+        "Addiction ",
+        "Health crisis ",
+        "Homelessness",
+        "Natural Disaster",
+        "Hunger",
+        "None",
+        "Partner No Preference"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "personality_type",
+      "text": "Which of the personality type below do you consider yourself to be aligned with-One Selection",
+      "text_partner": "Preferred Personality Type of the Participant-Score up to 4 top selections.",
+      "choices": [
+        "INFP (Introvert, intuition, feeling, perceiving) ",
+        "INTJ (Introvert, Intuition, Thinking, Judging) ",
+        "INFJ (Introvert, Intuition, Feeling, Judgment) ",
+        "INTP (Introvert, Intuition, Thinking, Perceiving) ",
+        "ISFJ (Introvert, Sensing, Feeling, Judging) ",
+        "ISFP (Introvert, Sensing, Feeling, Perceiving) ",
+        "ISTJ (Introvert, Sensing, Thinking, Judging) ",
+        "ISTP (Introvert, Sensing, Thinking, Perceiving) ",
+        "ESFJ (Extravert, Sensing, Feeling, Judging) ",
+        "ESFP (Extravert, Sensing, Feeling, Perceiving) ",
+        "ESTJ (Extravert, Sensing, Thinking, Judging) ",
+        "ESTP (Extravert, Sensing, Thinking, Perceiving) ",
+        "ENFP (Extravert, Intuition, Feeling, Perceiving) ",
+        "ENTJ (Extravert, Intuition, Thinking, Judging) ",
+        "ENTP (Extravert, Intuition, Thinking, Perceiving) ",
+        "ENFJ (Extravert, Intuition, Feeling, Judging) "
+      ],
+      "question_type": "select",
+      "question_type_partner": "select-multiple",
+      "selection_range": [1, 4]
+    },
+    {
+      "id": "personal_mindset",
+      "text": "Which of the personality mindset below do you consider yourself to be aligned with.  Score up to 3",
+      "text_partner": "Preferred Mindset of the Participant- Score up to 3 selections ",
+      "choices": [
+        "Realistic",
+        "Investigative",
+        "Artistic ",
+        "Social ",
+        "Enterprising",
+        "Conventional "
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "role_types",
+      "text": "I value Roles with work activities that are: score up to 3",
+      "text_partner": "You/your organization's work activities- Score up to 3  selections that best describes the activities exercised by you/your organization",
+      "choices": [
+        "Analytical ",
+        "Challenging ",
+        "Creative ",
+        "Helping",
+        "Innovative ",
+        "Physical ",
+        "Interactive ",
+        "Research ",
+        "Risk taking ",
+        "Variety "
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "organizational_values",
+      "text": "Values that you like to see where you work: Score up to 3",
+      "text_partner": "You/your organization's values- Score up to 3 selections that best reflect you/your organization's values",
+      "choices": [
+        "Work/Life Balance ",
+        "Influence",
+        "Integrity",
+        "Honesty",
+        "Power",
+        "Respect",
+        "Spirituality",
+        "Status",
+        "Prestige"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "work_environment",
+      "text": "The type of work environment you want to work in: score up to 3",
+      "text_partner": "You/your organizational working environment- Score up to 3 selections that best reflet you/your organization's environment",
+      "choices": [
+        "Fast Paced ",
+        "Flexible ",
+        "Promotes Financial Reward",
+        "Promotes Learning",
+        "With Good Amenities",
+        "Predictable",
+        "Quiet",
+        "Relaxed ",
+        "Structured ",
+        "Autonomous"
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    },
+    {
+      "id": "team_culture",
+      "text": "The kind of team culture that you like to see where you work: score top 3",
+      "text_partner": "You/your organizational team culture- Score up to 3 selections that best reflect you/your organization team culture",
+      "choices": [
+        "Competition ",
+        "Diversity ",
+        "Leadership ",
+        "Management ",
+        "Open Communication ",
+        "Teamwork ",
+        "Trust ",
+        "Performance",
+        "Self-Development "
+      ],
+      "question_type": "select-multiple",
+      "selection_range": [1, 3]
+    }
+  ],
+  "sections": [
+    { "name": "Assistance Category", "interval": [1, 5] },
+    { "name": "Demographics", "interval": [6, 10] },
+    { "name": "Behavioral Assessment", "interval": [13, 20] }
+  ]
+}

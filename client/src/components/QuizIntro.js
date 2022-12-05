@@ -18,7 +18,7 @@ function QuizIntro() {
         setIsLoading(false);
       });
   }, []);
-  let steps = [
+  let participantSteps = [
     {
       value: "Take a quick, 10-minute survey.",
     },
@@ -27,6 +27,18 @@ function QuizIntro() {
     },
     {
       value: "Network and see where your career goes!",
+    },
+  ];
+
+  let partnerSteps = [
+    {
+      value: "Take a quick, 10-minute survey.",
+    },
+    {
+      value: "Get matched with a participant you can best help.",
+    },
+    {
+      value: "Leave a long-lasting imprint",
     },
   ];
   if (isLoading) {
@@ -86,15 +98,30 @@ function QuizIntro() {
       return (
         <div className="flex flex-col items-center">
           <img src={require("../img/advisor.png")} width="200px" />
-          <div className="container">
-            {steps.map((step, i) => (
-              <div className="flex flex-row my-4 items-center space-x-8">
-                <div className="bg-blue-500 text-white text-4xl rounded-full w-12 h-12 flex items-center justify-center">
-                  <div>{i + 1}</div>
+          <div className="container flex flex-col items-center">
+            <div>
+              {(searchParams.get("mode") == "partner"
+                ? partnerSteps
+                : participantSteps
+              ).map((step, i) => (
+                <div className="flex flex-row my-4 items-center space-x-8">
+                  <div className="bg-blue-600 text-white text-2xl rounded-full w-12 h-12 flex items-center justify-center">
+                    <div>{i + 1}</div>
+                  </div>
+                  <div className="text-xl">{step.value}</div>
                 </div>
-                <div className="text-xl">{step.value}</div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="text-xl my-4">
+              <div>Instructions</div>
+              <ul className="list-disc ml-8 mt-2">
+                <li>
+                  Score all questions based on your preference as instructed
+                </li>
+                <li>Scores must total 10</li>
+                <li>Click next to advance</li>
+              </ul>
+            </div>
           </div>
           <Button onClick={() => setIsTakingQuiz(true)}>
             Take the survey!

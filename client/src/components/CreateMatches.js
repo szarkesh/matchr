@@ -27,7 +27,7 @@ function CreateMatches() {
   }, []);
   return (
     <div className="flex  flex-col items-center">
-      <div className="p-4 m-4">
+      <div className="p-4 m-4 w-1/2">
         Below are the scores for each (partner, participant) pair. Click on a
         cell in order to look at the responses for this pair of people and match
         or unmatch them! Bold pairings are ones you have marked matched! You
@@ -56,7 +56,7 @@ function CreateMatches() {
                       <Link
                         to={`/sidebyside?partner=${partner.email}&participant=${similarities.participants[index].email}`}
                       >
-                        {score[0].toFixed(3)}
+                        {(score[0] * 100).toFixed(1)}
                       </Link>
                     </td>
                   ))}
