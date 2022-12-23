@@ -10,7 +10,7 @@ function ViewResponse() {
   let [areMatched, setAreMatched] = useState(false);
   let [questionText, setQuestionText] = useState({});
   useEffect(() => {
-    fetch(SERVER_URL + "/response" + window.location.search, {
+    fetch(SERVER_URL + "/singleResponse" + window.location.search, {
       credentials: "include",
     })
       .then((res) => res.json())

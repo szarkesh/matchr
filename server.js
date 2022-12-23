@@ -434,7 +434,7 @@ app.get("/matchedResponses", async (req, res) => {
   });
 });
 
-app.get("/response", async (req, res) => {
+app.get("/singleResponse", async (req, res) => {
   let db_connect = dbo.getDb();
   let user = await db_connect
     .collection("users")
