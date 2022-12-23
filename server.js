@@ -413,8 +413,6 @@ app.get("/sendNewMatchesEmails", async (req, res) => {
 });
 
 app.get("/matchedResponses", async (req, res) => {
-  console.log("getted mathced response");
-  console.log(req.query.partner);
   let db_connect = dbo.getDb();
   let partner = await db_connect
     .collection("users")
@@ -429,17 +427,19 @@ app.get("/matchedResponses", async (req, res) => {
     partner: req.query.partner,
   });
 
-  console.log("sending", {
-    partner: partner,
-    participant: participant,
-    isMatched: !!isMatched,
-  });
-
   res.send({
     partner: partner,
     participant: participant,
     isMatched: !!isMatched,
   });
+});
+
+app.get("/response", async (req, res) => {
+  let db_connect = dbo.getDb();
+  let user = await db_connect
+    .collection("users")
+    .findOne({ email: req.query.user });
+  res.send(user);
 });
 
 app.post("/match", async (req, res) => {

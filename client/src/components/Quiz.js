@@ -132,7 +132,8 @@ function Quiz(props) {
     <div className="flex flex-col items-center px-4 w-full relative">
       <div className="flex flex-col flex-center w-full p-4">
         <div className="text-center w-full">
-          {isPartner ? partner_text : participant_text}
+          {isPartner ? partner_text : participant_text}{" "}
+          {!isPartner && <b>Your match will be able to see your responses.</b>}
         </div>
       </div>
       {questionIntervals && (

@@ -12,6 +12,7 @@ import Login from "./Login";
 import Quiz from "./Quiz";
 import QuizIntro from "./QuizIntro";
 import Signup from "./Signup";
+import ViewResponse from "./ViewResponse";
 import ViewSideBySide from "./ViewSideBySide";
 
 let navigation = [
@@ -55,6 +56,7 @@ function App() {
         <Route path="quiz" element={<QuizIntro />} />
         <Route path="match" element={<CreateMatches />} />
         <Route path="sidebyside" element={<ViewSideBySide />} />
+        <Route path="response" element={<ViewResponse />} />
       </Routes>
     </div>
   );

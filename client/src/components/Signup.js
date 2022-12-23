@@ -12,9 +12,18 @@ function Signup() {
   let isPartner = mode == "partner";
 
   let handleSubmit = (e) => {
+    setSignupError("");
     e.preventDefault();
     if (!/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/.test(e.target.email.value)) {
       setSignupError("Invalid email!");
+      return;
+    }
+    if (
+      !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(e.target.password.value)
+    ) {
+      setSignupError(
+        "Password must contain an uppercase letter, lower case number, and a number."
+      );
       return;
     }
     if (e.target.confirm_password.value != e.target.password.value) {
@@ -47,7 +56,8 @@ function Signup() {
   };
   return (
     <div className="container">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center my-8">
+        <div className="mt-4 mb-8">Please create an account to continue.</div>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <Input
