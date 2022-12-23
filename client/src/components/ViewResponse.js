@@ -2,19 +2,38 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Button from "./Button";
 import { SERVER_URL } from "../Constants";
+import { userInfo } from "os";
 
 function ViewResponse() {
   let [params, setParams] = useSearchParams();
   let [response, setResponse] = useState({ participant: {}, partner: {} });
   let [areMatched, setAreMatched] = useState(false);
+  let [questionText, setQuestionText] = useState({});
   useEffect(() => {
     fetch(SERVER_URL + "/response" + window.location.search, {
       credentials: "include",
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("TEST RESPONSES", res);
-        setResponse(res);
+        if (res.type == "participant") {
+          setResponse(res);
+        }
+      });
+
+    fetch(SERVER_URL + "/questions", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        let text = {};
+        for (let i of res.questions) {
+          text[i.id] = i.text;
+        }
+        console.log("TEXT IS", text);
+        setQuestionText(text);
       });
   }, []);
 
@@ -22,11 +41,11 @@ function ViewResponse() {
     console.log("responses are", mode, responses);
     return responses ? (
       Object.keys(responses).map((qid) => (
-        <div key={mode + " " + qid}>
-          <div className="text-blue-500 text-center">{qid}</div>
+        <div key={qid}>
+          <div className="text-blue-500 text-center">{questionText[qid]}</div>
           <div className="h-36">
             {Object.keys(responses[qid]).map((selection) => (
-              <div>
+              <div key={qid + "." + selection}>
                 {selection}: {responses[qid][selection]}
               </div>
             ))}
@@ -45,8 +64,9 @@ function ViewResponse() {
         </div>
         <div className="grid grid-cols-2">
           <div>
-            <div className="text-red-500">
-              Participant: {response.firstName} ({response.email})
+            <div className="text-red-500 mb-4">
+              Here are responses from {response.firstName} (
+              <a href={"mailto:" + response.email}>{response.email}</a>)
             </div>
             {visualResponses("participant", response.responses)}
           </div>
