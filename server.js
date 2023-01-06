@@ -172,17 +172,9 @@ let surveySimilarity = (r1, r2) => {
   let total_similarity = 0;
   let total_weight = 0;
   for (let question_id in r1.responses) {
-    if (
-      !(question_id in r2.responses) ||
-      (nopref in r2.responses[question_id] &&
-        !isNaN(r2.responses[question_id][nopref]))
-    ) {
+    if (!(question_id in r2.responses)) {
       continue;
     }
-    let weight = questionsFile.questions.find(
-      (q) => q.id == question_id
-    ).weight;
-    total_weight += weight;
     normalizedResponser1 =
       r1.responses[question_id] && "value" in r1.responses[question_id]
         ? { [r1.responses[question_id]["value"]]: 10 }
@@ -191,6 +183,16 @@ let surveySimilarity = (r1, r2) => {
       r2.responses[question_id] && "value" in r2.responses[question_id]
         ? { [r2.responses[question_id]["value"]]: 10 }
         : r2.responses[question_id];
+    if (
+      nopref in normalizedResponser2.responses[question_id] &&
+      !isNaN(normalizedResponser2.responses[question_id][nopref])
+    ) {
+      continue;
+    }
+    let weight = questionsFile.questions.find(
+      (q) => q.id == question_id
+    ).weight;
+    total_weight += weight;
     let prod = 0;
     let len1 = 0;
     let len2 = 0;

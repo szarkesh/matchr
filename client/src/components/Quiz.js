@@ -7,7 +7,8 @@ import { SERVER_URL } from "../Constants";
 function Quiz(props) {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  let isPartner = searchParams.get("mode") == "partner";
+  let mode = searchParams.get("mode");
+  let isPartner = mode == "partner";
 
   let [responses, setResponses] = useState({});
   let handleChange = (value, question_id) => {
@@ -18,6 +19,8 @@ function Quiz(props) {
   let [questionIntervals, setQuestionIntervals] = useState(undefined);
   let [questions, setQuestions] = useState(null);
   let [isValid, setIsValid] = useState(false);
+
+  let [sumResponses, setSumResponses] = useState(0);
 
   let [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
 
@@ -39,6 +42,7 @@ function Quiz(props) {
           (item) => !isNaN(item)
         );
         let sumResponses = nums.reduce((a, b) => a + b, 0);
+        setSumResponses(sumResponses);
         let numNonzeroResponses = nums.filter((value) => value > 0).length;
         console.log("responses sum is ", sumResponses);
         setIsValid(
@@ -137,34 +141,45 @@ function Quiz(props) {
         </div>
       </div>
       {questionIntervals && (
-        <div className="my-4 hidden md:inline-block">
-          {questionIntervals.map((item) => (
-            <div className="inline-block">
-              <div
-                className={`float-left arrow-left${
-                  currentQuestionIndex + 1 >= item.interval[0]
-                    ? "-complete"
-                    : ""
-                }`}
-              ></div>
-              <div
-                className={`float-left arrow-ctr${
-                  currentQuestionIndex + 1 >= item.interval[0]
-                    ? "-complete"
-                    : ""
-                }`}
-              >
-                {item.name}
+        <div className="my-4 flex flex-col items-center">
+          <div className="my-2 inline-block">
+            {questionIntervals.map((item) => (
+              <div className="inline-block">
+                <div
+                  className={`float-left arrow-left${
+                    currentQuestionIndex + 1 >= item.interval[0]
+                      ? "-complete"
+                      : ""
+                  }`}
+                ></div>
+                <div
+                  className={`float-left arrow-ctr${
+                    currentQuestionIndex + 1 >= item.interval[0]
+                      ? "-complete"
+                      : ""
+                  }`}
+                >
+                  {item.name}
+                </div>
+                <div
+                  className={`float-left arrow-right${
+                    currentQuestionIndex + 1 >= item.interval[0]
+                      ? "-complete"
+                      : ""
+                  }`}
+                ></div>
               </div>
-              <div
-                className={`float-left arrow-right${
-                  currentQuestionIndex + 1 >= item.interval[0]
-                    ? "-complete"
-                    : ""
-                }`}
-              ></div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="text-center text-lg mb-2 max-w-xl p-2 bg-blue-600 text-white rounded-xl">
+            {
+              questionIntervals.find(
+                (item) =>
+                  currentQuestionIndex + 1 >= item.interval[0] ||
+                  currentQuestionIndex + 1 <= item.interval[1]
+              )["description_" + mode]
+            }
+          </div>
         </div>
       )}
       {question && (
@@ -186,7 +201,8 @@ function Quiz(props) {
                     style={{ visibility: isValid ? "hidden" : "visible" }}
                   >
                     Score up to {question.selection_range[1]} responses that add
-                    up to 10 to move on to the next question!
+                    up to 10 to move on to the next question! (Current total:{" "}
+                    {sumResponses})
                   </div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 md:gap-x-8">
                     {question.choices.map((choice) => (

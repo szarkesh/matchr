@@ -13,7 +13,7 @@ function Home() {
   let [viewPdf, setViewPdf] = useState(false);
   return (
     <div class="flex-1 flex-grow flex flex-col items-center justify-center pb-8">
-      <div class="text-4xl">Welcome to MTCHR.</div>
+      <div class="text-4xl">Welcome to MATCHR.</div>
       <div class="flex flex-col items-center space-y-4 my-4">
         <Link to="/signup?mode=participant">
           <Button>
@@ -32,7 +32,7 @@ function Home() {
         </Link>
       </div>
       <div className="my-8">
-        <a onClick={() => setViewPdf(!viewPdf)}>About the MTCHR.</a>
+        <a onClick={() => setViewPdf(!viewPdf)}>About the MATCHR.</a>
       </div>
       {viewPdf && (
         <embed
